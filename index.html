@@ -11,7 +11,6 @@
         .sidebar { width: 64px; background-color: #0b2246; flex-shrink: 0; }
         .top-nav { background-color: #0b2246; color: white; }
         
-        /* Visibility logic for unassigned shifts */
         .unassigned-shift-block {
             background: repeating-linear-gradient(45deg, #007bff, #007bff 10px, #0069d9 10px, #0069d9 20px);
             color: white; padding: 6px 8px; border-radius: 4px; font-size: 10px;
@@ -302,7 +301,6 @@
             modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
             if (modal.style.display === 'flex') {
                 if(globalUnassignedShifts.length === 0) initGlobalShifts();
-                renderShifts();
                 applyFilters();
             }
         }
@@ -317,7 +315,6 @@
             }
         }
 
-        // --- Standard Logic Functions (Tab Switching, Filtering, Tooltips, etc.) ---
         function switchTab(tab) {
             currentTab = tab;
             document.getElementById('eligibleTab').classList.toggle('active', tab === 'eligible');
@@ -325,6 +322,7 @@
             applyFilters();
         }
 
+        // Updated Filter Logic: Shifts filter by Position only. Employees filter by Department AND Position.
         function applyFilters() {
             const dept = document.getElementById('filterDept').value;
             const pos = document.getElementById('filterPos').value;
@@ -332,13 +330,27 @@
             const paySort = document.getElementById('sortPay').value;
             const hourSort = document.getElementById('sortHours').value;
 
-            let filtered = allEmployees.filter(e => (currentTab === 'eligible' ? e.eligible : !e.eligible) && (dept === 'all' || e.dept === dept) && (pos === 'all' || e.pos === pos) && (parseFloat(e.rate) <= maxPay));
-            if (paySort === 'lowest') filtered.sort((a, b) => a.rate - b.rate);
-            else if (paySort === 'highest') filtered.sort((a, b) => b.rate - a.rate);
-            if (hourSort === 'asc') filtered.sort((a, b) => a.hours - b.hours);
-            else if (hourSort === 'desc') filtered.sort((a, b) => b.hours - a.hours);
+            // 1. Filter Employees (uses both Dept and Position)
+            let filteredEmps = allEmployees.filter(e => 
+                (currentTab === 'eligible' ? e.eligible : !e.eligible) && 
+                (dept === 'all' || e.dept === dept) && 
+                (pos === 'all' || e.pos === pos) && 
+                (parseFloat(e.rate) <= maxPay)
+            );
+            
+            if (paySort === 'lowest') filteredEmps.sort((a, b) => a.rate - b.rate);
+            else if (paySort === 'highest') filteredEmps.sort((a, b) => b.rate - a.rate);
+            if (hourSort === 'asc') filteredEmps.sort((a, b) => a.hours - b.hours);
+            else if (hourSort === 'desc') filteredEmps.sort((a, b) => b.hours - a.hours);
 
-            renderPopupEmployees(filtered);
+            renderPopupEmployees(filteredEmps);
+
+            // 2. Filter Shifts (USES POSITION ONLY as requested)
+            let filteredShifts = globalUnassignedShifts.filter(s => 
+                (pos === 'all' || s.pos === pos)
+            );
+            renderShifts(filteredShifts);
+
             updateButtonText();
         }
 
@@ -381,21 +393,25 @@
             tooltip.style.top = top + 'px'; tooltip.style.left = left + 'px';
         }
         function hideTooltip() { document.getElementById('global-tooltip').style.display = 'none'; }
+        
         function toggleTile(tile) {
             const cb = tile.querySelector('input');
             cb.checked = !cb.checked;
             tile.classList.toggle('selected', cb.checked);
             updateButtonText();
         }
+
         function updateButtonText() {
             const count = document.querySelectorAll('#popupEmployeeContainer .employee-tile input:checked').length;
             document.getElementById('sendOfferBtn').innerHTML = `<i class="fa-regular fa-paper-plane mr-2"></i> Send Offer ${count > 0 ? '(' + count + ')' : ''}`;
         }
+
         function toggleEmployeeColHeader(idx) {
             const chk = document.getElementById(`col-check-${idx}`);
             chk.checked = !chk.checked;
             toggleEmployeeCol(idx, chk.checked);
         }
+
         function toggleEmployeeCol(colIdx, isChecked) {
             const col = document.querySelector(`.employee-col-${colIdx}`);
             if(!col) return;
@@ -406,6 +422,7 @@
             });
             updateButtonText();
         }
+
         function handleSelectAll(source) {
             document.querySelectorAll('.employee-tile').forEach(t => {
                 const cb = t.querySelector('input');
@@ -418,6 +435,7 @@
             }
             updateButtonText();
         }
+
         function getBreakDetails(timeStr) {
             if(timeStr.includes("8:00A")) return `Meal: 11:30A - 12:00P<br>Rest: 2:00P - 2:15P`;
             if(timeStr.includes("4:00P")) return `Meal: 6:30P - 7:00P`;
@@ -425,11 +443,11 @@
             return "No breaks scheduled";
         }
 
-        function renderShifts() {
+        function renderShifts(shiftList = globalUnassignedShifts) {
             const grid = document.getElementById('shiftTimeline');
             grid.innerHTML = "";
             daysArr.forEach((day, dIdx) => {
-                const dayShifts = globalUnassignedShifts.filter(s => s.dayIdx === dIdx);
+                const dayShifts = shiftList.filter(s => s.dayIdx === dIdx);
                 let shiftItems = dayShifts.map(s => {
                     const colors = roleColors[s.pos] || { border: "#ccc", bg: "#eee", text: "#333" };
                     const breaks = getBreakDetails(s.time);
@@ -441,6 +459,7 @@
                             <span class="badge" style="background-color: ${colors.bg}; color: ${colors.text}">${s.pos}</span>
                         </div>`;
                 }).join('');
+                
                 grid.innerHTML += `<div class="flex flex-col" id="day-col-${dIdx}">
                     <div class="day-header" onclick="toggleDayUIHeader(${dIdx})">
                         <span class="text-[9px] font-extrabold text-slate-500 uppercase tracking-wider">${day}</span>
@@ -508,6 +527,7 @@
         }
 
         function closeAutoAssign() { document.getElementById('autoAssignModal').style.display = 'none'; }
+        
         function finalizeAssignments() {
             pendingAssignments.forEach(item => {
                 const emp = allEmployees.find(e => e.name === item.empName);
@@ -530,7 +550,6 @@
             tbody.innerHTML = '';
             const pendingCount = globalUnassignedShifts.length;
             
-            // --- UI UPDATE: ADDING ICONS TO BUTTONS ---
             let unassignedRowHtml = `<tr id="unassigned-row" class="unassigned-row ${unassignedVisible ? 'active' : ''}">
                 <td class="p-4 border-r border-b sticky left-0 unassigned-card-bg shadow-sm z-20">
                     <div class="flex flex-col items-center">
@@ -584,7 +603,8 @@
             });
         }
 
-        initGlobalShifts(); refreshMainSchedule();
+        initGlobalShifts(); 
+        refreshMainSchedule();
     </script>
 </body>
 </html>
