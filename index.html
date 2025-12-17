@@ -21,144 +21,187 @@
         .unassigned-row.active .unassigned-shift-block { display: block; }
 
         .nav-icon { font-size: 22px; color: #ffffff; opacity: 0.8; cursor: pointer; }
-        .unavailable-slot { border: 1px dashed #cbd5e1; border-radius: 4px; background: white; font-size: 11px; }
         .employee-row:nth-child(even) { background-color: #fbfcfd; }
         
         .unassigned-card-bg { background-color: #f4f7ff; }
         .pending-badge { background-color: #ffe8e8; color: #b91c1c; padding: 2px 8px; border-radius: 99px; font-size: 10px; font-weight: bold; }
 
         .modal-overlay { background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px); display: none; position: fixed; inset: 0; z-index: 100; align-items: center; justify-content: center; }
-        .modal-content { background: white; width: 1050px; height: 680px; border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0; }
+        .modal-content { background: white; width: 1150px; height: 680px; border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0; }
         
-        /* Auto Assign Specific Styles - Enhanced */
-        .auto-assign-modal { width: 600px; height: 500px; border: none; }
+        .auto-assign-modal { width: 650px; height: 550px; border: none; }
         .assign-item { transition: all 0.2s; border-left: 4px solid transparent; }
         .assign-item:hover { transform: translateX(5px); border-left-color: #10b981; }
 
-        .tab-container { background: #f1f5f9; border-radius: 6px; padding: 3px; display: flex; margin-bottom: 12px; }
+        .tab-container { background: #f1f5f9; border-radius: 6px; padding: 3px; display: flex; margin-bottom: 0px; }
         .tab-btn { flex: 1; padding: 6px; border-radius: 4px; font-size: 12px; font-weight: 600; text-align: center; cursor: pointer; color: #64748b; transition: 0.2s; }
         .tab-btn.active { background: #5e5ce6; color: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 
-        .switch { position: relative; display: inline-block; width: 30px; height: 16px; }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; inset: 0; background-color: #cbd5e1; transition: .3s; border-radius: 20px; }
-        .slider:before { position: absolute; content: ""; height: 12px; width: 12px; left: 2px; bottom: 2px; background-color: white; transition: .3s; border-radius: 50%; }
-        input:checked + .slider { background-color: #5e5ce6; }
-        input:checked + .slider:before { transform: translateX(14px); }
+        .custom-checkbox { width: 14px; height: 14px; cursor: pointer; accent-color: #5e5ce6; }
 
-        .day-switch { position: relative; display: inline-block; width: 28px; height: 14px; }
-        .day-switch input { opacity: 0; width: 0; height: 0; }
-        .day-slider { position: absolute; cursor: pointer; inset: 0; background-color: #ef4444; transition: .3s; border-radius: 20px; }
-        .day-slider:before { position: absolute; content: ""; height: 10px; width: 10px; left: 2px; bottom: 2px; background-color: white; transition: .3s; border-radius: 50%; }
-        input:checked + .day-slider { background-color: #22c55e; }
-        input:checked + .day-slider:before { transform: translateX(14px); }
-
-        .employee-tile { border: 1px solid #e2e8f0; background: #ffffff; border-radius: 8px; padding: 10px; transition: all 0.2s; cursor: pointer; }
+        .employee-tile { border: 1px solid #e2e8f0; background: #ffffff; border-radius: 6px; padding: 4px 6px; transition: all 0.2s; cursor: pointer; display: flex; align-items: center; min-height: 40px; position: relative; }
         .employee-tile:hover { border-color: #5e5ce6; background: #f8fafc; }
         .employee-tile.selected { border-color: #5e5ce6; background-color: #f5f3ff; }
-        .star-golden { color: #f59e0b; font-size: 10px; margin-right: 1px; }
 
-        .day-header { border-bottom: 2px solid #f1f5f9; padding: 10px 4px; margin-bottom: 12px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; transition: all 0.2s; border-radius: 8px; }
+        #global-tooltip {
+            position: fixed;
+            z-index: 10000;
+            background-color: #1e293b;
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 10px;
+            pointer-events: none;
+            display: none;
+            width: 180px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+            border: 1px solid #334155;
+        }
+        .star-gold { color: #facc15; }
+
+        .day-header { border-bottom: 2px solid #f1f5f9; padding: 6px 4px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; transition: all 0.2s; border-radius: 8px; }
         .day-header:hover { background-color: #f1f5f9; }
         
-        .shift-pill { border: 1.5px solid #e2e8f0; background: white; border-radius: 8px; padding: 6px; cursor: pointer; transition: all 0.15s; margin-bottom: 8px; position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 52px; }
+        .shift-pill { border: 1.5px solid #e2e8f0; background: white; border-radius: 8px; padding: 4px 6px; cursor: pointer; transition: all 0.15s; margin-bottom: 6px; position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 48px; }
         .shift-pill:hover { filter: brightness(0.95); transform: translateY(-1px); }
-        .shift-pill.selected { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); border-color: #5e5ce6 !important; background-color: #f5f3ff; }
-        .shift-pill.selected::after { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; right: 2px; top: 2px; color: #5e5ce6; font-size: 10px; }
+        .shift-pill.selected { box-shadow: 0 4px 12px rgba(94, 92, 230, 0.2); border-color: #4338ca !important; background-color: #e0e7ff !important; }
+        
+        .break-icon { font-size: 10px; color: #ef4444; margin-left: 4px; cursor: help; position: relative; }
+        .break-tooltip { visibility: hidden; width: 150px; background-color: #334155; color: #fff; text-align: left; padding: 6px 8px; border-radius: 4px; position: absolute; z-index: 60; bottom: 125%; right: 0; opacity: 0; transition: opacity 0.2s; font-size: 9px; line-height: 1.2; box-shadow: 0 4px 6px rgba(0,0,0,0.2); pointer-events: none; }
+        .break-icon:hover .break-tooltip { visibility: visible; opacity: 1; }
 
-        .badge { font-size: 8px; font-weight: 800; padding: 2px 4px; border-radius: 4px; text-transform: uppercase; display: block; margin-top: 4px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .badge { font-size: 8px; font-weight: 800; padding: 1px 4px; border-radius: 4px; text-transform: uppercase; display: block; margin-top: 2px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .main-shift-card { padding: 4px 6px; border-radius: 6px; margin: 2px; border-left: 3px solid; text-align: left; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
 
         .list-scroll::-webkit-scrollbar { width: 6px; }
         .list-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .hidden-shift { display: none !important; }
+
+        .filter-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f1f5f9; }
+        .filter-item i { width: 18px; color: #1e40af; text-align: center; }
+        .filter-select { background: #fff; border: 1px solid #e2e8f0; border-radius: 4px; font-size: 11px; padding: 2px 6px; outline: none; flex: 1; color: #334155; height: 24px; }
     </style>
 </head>
 <body class="flex h-screen overflow-hidden">
 
+    <div id="global-tooltip"></div>
+
     <div id="offerModal" class="modal-overlay">
         <div class="modal-content">
-            <div class="px-6 py-4 border-b flex justify-between items-center bg-white">
-                <div>
-                    <h2 class="text-xl font-bold text-slate-900">Offer Shifts</h2>
-                </div>
+            <div class="px-6 py-3 border-b flex justify-between items-center bg-white">
+                <h2 class="text-lg font-bold text-slate-900">Offer Shifts</h2>
                 <button onclick="toggleOfferModal()" class="text-slate-400 hover:text-slate-600 transition-colors"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             
             <div class="flex flex-1 overflow-hidden">
-                <div class="flex-1 flex flex-col bg-white overflow-hidden">
-                    <div class="p-4 border-b grid grid-cols-3 gap-3">
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Department</label>
-                            <select id="filterDept" onchange="applyFilters()" class="w-full border rounded-md p-1.5 text-xs bg-white outline-none focus:border-indigo-500">
-                                <option value="all">All Departments</option>
+                <div class="flex-1 flex flex-col bg-slate-50 overflow-hidden border-r">
+                    
+                    <div class="h-[45%] flex flex-col bg-white border-b overflow-hidden">
+                        <div class="px-4 py-2 flex justify-between items-center bg-white sticky top-0 z-10">
+                            <h3 class="text-[10px] font-bold text-slate-700 uppercase tracking-wider">Unassigned Shifts</h3>
+                            <div class="flex items-center space-x-3 bg-slate-50 px-3 py-1 rounded-lg border border-slate-200">
+                                <span class="text-[10px] font-bold text-slate-600 uppercase">Select All Shifts</span>
+                                <input type="checkbox" id="globalShiftToggle" onchange="toggleAllShiftsGlobal(this)" class="custom-checkbox">
+                            </div>
+                        </div>
+                        <div class="flex-1 overflow-y-auto list-scroll px-4 pb-2">
+                            <div class="grid grid-cols-7 gap-2" id="shiftTimeline"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 flex flex-col bg-white overflow-hidden">
+                        <div class="px-4 py-2 border-b flex justify-between items-center bg-slate-50/50">
+                            <div class="tab-container w-40">
+                                <div id="eligibleTab" class="tab-btn active !py-1" onclick="switchTab('eligible')">Eligible</div>
+                                <div id="othersTab" class="tab-btn !py-1" onclick="switchTab('others')">Others</div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="text-[9px] font-bold text-slate-500">GLOBAL SELECT</span>
+                                <input type="checkbox" id="selectAllToggle" onchange="handleSelectAll(this)" class="custom-checkbox">
+                            </div>
+                        </div>
+                        
+                        <div class="flex-1 overflow-y-auto list-scroll px-4 py-2 relative">
+                            <div class="grid grid-cols-7 gap-2 sticky top-0 bg-white z-20 pb-2 border-b mb-2">
+                                <script>
+                                    const daysArr = ["SUN 14", "MON 15", "TUE 16", "WED 17", "THU 18", "FRI 19", "SAT 20"];
+                                    daysArr.forEach((day, idx) => {
+                                        document.write(`
+                                            <div class="flex items-center justify-center p-1.5 bg-slate-50 rounded border border-slate-100 gap-2 cursor-pointer" onclick="toggleEmployeeColHeader(${idx})">
+                                                <span class="text-[8px] font-bold text-slate-400 uppercase">${day}</span>
+                                                <input type="checkbox" id="col-check-${idx}" onchange="toggleEmployeeCol(${idx}, this.checked)" onclick="event.stopPropagation()" class="custom-checkbox">
+                                            </div>
+                                        `);
+                                    });
+                                </script>
+                            </div>
+                            <div id="popupEmployeeContainer" class="grid grid-cols-7 gap-2 align-start content-start overflow-x-hidden">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-[280px] bg-white p-4 flex flex-col">
+                    <div class="flex-1 space-y-2">
+                        <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest border-b pb-2 mb-2">Filters</h3>
+                        
+                        <div class="filter-item">
+                            <i class="fa-solid fa-building text-[12px]"></i>
+                            <span class="text-[11px] text-slate-600 w-20">Dept:</span>
+                            <select id="filterDept" onchange="applyFilters()" class="filter-select">
+                                <option value="all">Any Dept</option>
                                 <option value="FOH">FOH</option>
                                 <option value="BOH">BOH</option>
                                 <option value="Maintenance">Maintenance</option>
                             </select>
                         </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Position</label>
-                            <select id="filterPos" onchange="applyFilters()" class="w-full border rounded-md p-1.5 text-xs bg-white outline-none focus:border-indigo-500">
-                                <option value="all">All Positions</option>
+
+                        <div class="filter-item">
+                            <i class="fa-solid fa-briefcase text-[12px]"></i>
+                            <span class="text-[11px] text-slate-600 w-20">Position:</span>
+                            <select id="filterPos" onchange="applyFilters()" class="filter-select">
+                                <option value="all">Any Position</option>
                                 <option value="Assistant Manager">Assistant Manager</option>
                                 <option value="Cashier">Cashier</option>
                                 <option value="Floor Supervisor">Floor Supervisor</option>
                                 <option value="Manager">Manager</option>
                             </select>
                         </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Max Pay Rate</label>
+
+                        <div class="filter-item">
+                            <i class="fa-solid fa-circle-right text-[12px] text-emerald-500"></i>
+                            <span class="text-[11px] text-slate-600 w-20">Pay Rate:</span>
+                            <select id="sortPay" onchange="applyFilters()" class="filter-select">
+                                <option value="all">Default</option>
+                                <option value="lowest">Sort: Lowest</option>
+                                <option value="highest">Sort: Highest</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-item">
+                            <i class="fa-solid fa-circle-check text-[12px] text-blue-600"></i>
+                            <span class="text-[11px] text-slate-600 w-20">Hours:</span>
+                            <select id="sortHours" onchange="applyFilters()" class="filter-select">
+                                <option value="all">Default</option>
+                                <option value="asc">Ascending</option>
+                                <option value="desc">Descending</option>
+                            </select>
+                        </div>
+
+                        <div class="pt-4 pb-6">
+                            <label class="block text-[9px] font-bold text-slate-500 uppercase mb-1">Max Pay Rate ($)</label>
                             <div class="relative">
-                                <span class="absolute left-2 top-1.5 text-slate-400 text-xs">$</span>
-                                <input type="number" id="filterPay" oninput="applyFilters()" placeholder="0.00" class="w-full border rounded-md p-1.5 pl-5 text-xs bg-white outline-none focus:border-indigo-500">
+                                <span class="absolute left-2.5 top-1.5 text-slate-400 text-[11px]">$</span>
+                                <input type="number" id="filterPay" oninput="applyFilters()" placeholder="0.00" class="w-full border rounded-md p-1.5 pl-5 text-[11px] bg-slate-50">
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex-1 overflow-y-auto list-scroll p-4">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Unassigned Shifts</h3>
-                            <div class="flex items-center space-x-3 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
-                                <span class="text-[11px] font-bold text-slate-600 uppercase">Select All Shifts</span>
-                                <label class="day-switch">
-                                    <input type="checkbox" id="globalShiftToggle" onchange="toggleAllShiftsGlobal(this)">
-                                    <span class="day-slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-7 gap-3" id="shiftTimeline">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="w-[340px] flex flex-col bg-white border-l border-slate-200 overflow-hidden">
-                    <div class="p-4 border-b">
-                        <div class="tab-container">
-                            <div id="eligibleTab" class="tab-btn active" onclick="switchTab('eligible')">Eligible</div>
-                            <div id="othersTab" class="tab-btn" onclick="switchTab('others')">Others</div>
-                        </div>
-                        <div class="flex justify-between items-center px-1">
-                            <span class="text-[10px] font-bold text-slate-400 uppercase">Select Employees</span>
-                            <div class="flex items-center space-x-2">
-                                <span class="text-[9px] font-bold text-slate-500">SELECT ALL</span>
-                                <label class="switch">
-                                    <input type="checkbox" id="selectAllToggle" onchange="handleSelectAll(this)">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="popupEmployeeContainer" class="p-4 space-y-3 flex-1 overflow-y-auto list-scroll bg-slate-50/20">
-                    </div>
-
-                    <div class="p-4 border-t space-y-2">
-                        <button class="w-full bg-[#5e5ce6] text-white py-3 rounded-md font-bold text-xs flex items-center justify-center transition-all hover:bg-indigo-700 shadow-lg shadow-indigo-100">
-                            <i class="fa-regular fa-paper-plane mr-2"></i> Send Offers
-                        </button>
-                        <button onclick="handleAutoAssignInit()" class="w-full bg-emerald-600 text-white py-3 rounded-md font-bold text-xs flex items-center justify-center transition-all hover:bg-emerald-700 shadow-lg shadow-emerald-100">
+                    <div class="flex flex-col space-y-3 pt-4 border-t">
+                        <button onclick="handleAutoAssignInit()" class="w-full bg-emerald-600 text-white py-3 rounded-md font-bold text-[11px] flex items-center justify-center transition-all hover:bg-emerald-700 shadow-md">
                             <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Auto Assign
+                        </button>
+                        <button id="sendOfferBtn" class="w-full bg-[#5e5ce6] text-white py-3 rounded-md font-bold text-[11px] flex items-center justify-center transition-all hover:bg-indigo-700 shadow-md">
+                            <i class="fa-regular fa-paper-plane mr-2"></i> Send Offer
                         </button>
                     </div>
                 </div>
@@ -171,12 +214,11 @@
             <div class="px-6 py-4 border-b bg-[#5e5ce6] text-white flex justify-between items-center">
                 <div>
                     <h2 class="text-lg font-bold">Auto Assign</h2>
-                    <p class="text-[10px] opacity-90 font-medium">Auto Assign of unassigned shift</p>
+                    <p class="text-[10px] opacity-90 font-medium">Confirm generated assignments</p>
                 </div>
                 <button onclick="closeAutoAssign()" class="hover:bg-white/20 p-2 rounded-full transition-colors"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="p-4 overflow-y-auto list-scroll flex-1 bg-slate-50" id="autoAssignList">
-                </div>
+            <div class="p-4 overflow-y-auto list-scroll flex-1 bg-slate-50" id="autoAssignList"></div>
             <div class="p-4 border-t bg-white flex space-x-3">
                 <button onclick="closeAutoAssign()" class="flex-1 py-3 border border-slate-200 rounded-lg text-xs font-bold text-slate-500 hover:bg-slate-50 transition-colors">Discard</button>
                 <button onclick="finalizeAssignments()" class="flex-1 py-3 bg-emerald-600 text-white rounded-lg text-xs font-bold hover:bg-emerald-700 shadow-lg transition-all">Confirm Assignments</button>
@@ -192,7 +234,6 @@
         <i class="fa-regular fa-chart-bar nav-icon"></i>
         <i class="fa-regular fa-file-lines nav-icon"></i>
         <i class="fa-regular fa-address-book nav-icon"></i>
-        <div class="mt-auto space-y-6 flex flex-col items-center pb-4"><i class="fa-solid fa-wrench nav-icon opacity-50"></i></div>
     </aside>
 
     <main class="flex-1 flex flex-col overflow-hidden">
@@ -201,7 +242,6 @@
                 <div class="flex items-center font-medium opacity-90">My Apps <i class="fa-solid fa-caret-down ml-1 text-[10px]"></i></div>
                 <div class="flex items-center font-medium opacity-90">Dashboard</div>
                 <div class="flex items-center text-blue-300 border-b-2 border-blue-300 pb-1 font-semibold">Schedule</div>
-                <div class="flex items-center font-medium opacity-90">Site 1 <i class="fa-solid fa-caret-down ml-1 text-[10px]"></i></div>
             </div>
             <div class="bg-white text-gray-800 px-4 py-1.5 rounded-full text-xs font-bold shadow-sm">
                 Corporate Head <i class="fa-solid fa-caret-down ml-2 text-[10px]"></i>
@@ -215,15 +255,9 @@
                     <button class="px-4 py-1 font-semibold">12/16/2025 <i class="fa-solid fa-caret-down ml-1 text-gray-400"></i></button>
                     <button class="px-2 py-1 border-l"><i class="fa-solid fa-chevron-right text-[10px]"></i></button>
                 </div>
-                <div class="flex border rounded text-xs bg-gray-50 shadow-sm">
-                    <button class="px-4 py-1 border-r">Day</button>
-                    <button class="px-4 py-1 border-r bg-white font-bold">Week</button>
-                    <button class="px-4 py-1">Month</button>
-                </div>
             </div>
             <div class="flex items-center space-x-3">
                 <button class="bg-blue-600 text-white px-4 py-1.5 rounded text-xs font-bold shadow-sm">+ Add Employee</button>
-                <button class="bg-gray-200 text-gray-400 px-4 py-1.5 rounded text-xs font-bold">Publish</button>
             </div>
         </div>
 
@@ -241,65 +275,44 @@
                         <th class="border-b p-2 text-center">Sat 20</th>
                     </tr>
                 </thead>
-                <tbody id="employee-rows">
-                    </tbody>
+                <tbody id="employee-rows"></tbody>
             </table>
         </div>
-
-        <footer class="bg-gray-50 border-t flex items-center text-[11px] font-bold text-gray-600 flex-shrink-0 h-10">
-            <div class="w-64 px-4 flex items-center border-r">
-                <i class="fa-solid fa-chevron-down text-blue-500 mr-4"></i>
-                <span>Hrs 148.00 | 1.2%</span>
-            </div>
-            <div class="flex-1 flex divide-x">
-                <div class="flex-1 text-center py-2">Hrs 20.00</div>
-                <div class="flex-1 text-center py-2">Hrs 24.00</div>
-                <div class="flex-1 text-center py-2">Hrs 22.00</div>
-                <div class="flex-1 text-center py-2 text-red-600">Hrs 30.00</div>
-                <div class="flex-1 text-center py-2">Hrs 18.00</div>
-                <div class="flex-1 text-center py-2">Hrs 16.00</div>
-                <div class="flex-1 text-center py-2">Hrs 18.00</div>
-            </div>
-        </footer>
     </main>
 
     <script>
-        // Extended Employee List
-        const allEmployees = [
-            // Eligible
-            { name: "Arena", initial: "A", color: "bg-blue-600", sub: "S", rate: 11.50, hours: "38.5h", skill: 4, eligible: true, dept: "FOH", pos: "Manager", shifts: {0: "8A-4P", 1: "8A-4P"} },
-            { name: "Celoao", initial: "CE", color: "bg-orange-500", sub: "", rate: 11.00, hours: "40.0h", skill: 3, eligible: true, dept: "BOH", pos: "Cashier", shifts: {3: "4P-9P"} },
-            { name: "Farhan", initial: "FA", color: "bg-pink-600", sub: "", rate: 19.50, hours: "35.0h", skill: 5, eligible: true, dept: "FOH", pos: "Floor Supervisor", shifts: {2: "6A-2P"} },
-            { name: "Chemapa", initial: "CH", color: "bg-amber-600", rate: 12.25, hours: "35.0h", skill: 4, eligible: true, dept: "FOH", pos: "Floor Supervisor", shifts: {0: "8A-4P"} },
-            { name: "Hafsa", initial: "HA", color: "bg-red-600", sub: "", rate: 18.50, hours: "20.0h", skill: 3, eligible: true, dept: "BOH", pos: "Cashier", shifts: {1: "4P-9P"} },
-            { name: "Zoya", initial: "ZO", color: "bg-indigo-600", rate: 14.00, hours: "30.0h", skill: 4, eligible: true, dept: "FOH", pos: "Cashier", shifts: {} },
-            { name: "Liam", initial: "LI", color: "bg-emerald-600", rate: 16.50, hours: "40.0h", skill: 5, eligible: true, dept: "BOH", pos: "Manager", shifts: {} },
-            { name: "Sophia", initial: "SO", color: "bg-violet-600", rate: 13.50, hours: "25.0h", skill: 3, eligible: true, dept: "FOH", pos: "Assistant Manager", shifts: {} },
-            
-            // Others
-            { name: "Christiano", initial: "CH", color: "bg-purple-600", sub: "", rate: 22.00, hours: "32.0h", skill: 5, eligible: false, dept: "Maintenance", pos: "Assistant Manager", shifts: {3: "8A-4P"} },
-            { name: "Demons", initial: "DE", color: "bg-lime-600", sub: "", rate: 17.75, hours: "45.0h", skill: 2, eligible: false, dept: "BOH", pos: "Cashier", shifts: {0: "4P-9P"} },
-            { name: "Iamr", initial: "IA", color: "bg-teal-600", sub: "", rate: 19.50, hours: "15.0h", skill: 4, eligible: false, dept: "FOH", pos: "Cashier", shifts: {4: "6A-2P"} },
-            { name: "Keshav", initial: "KE", color: "bg-cyan-600", sub: "", rate: 20.00, hours: "38.0h", skill: 4, eligible: false, dept: "FOH", pos: "Manager", shifts: {5: "6A-2P"} },
-            { name: "Marcus", initial: "MA", color: "bg-rose-600", rate: 25.00, hours: "40.0h", skill: 5, eligible: false, dept: "Maintenance", pos: "Manager", shifts: {} },
-            { name: "Elena", initial: "EL", color: "bg-slate-600", rate: 21.00, hours: "35.0h", skill: 4, eligible: false, dept: "BOH", pos: "Floor Supervisor", shifts: {} },
-            { name: "Viktor", initial: "VI", color: "bg-yellow-700", rate: 19.00, hours: "20.0h", skill: 3, eligible: false, dept: "FOH", pos: "Cashier", shifts: {} }
-        ];
+        const firstNames = ["Michael", "Sarah", "James", "Emily", "Robert", "Jennifer", "John", "Jessica", "David", "Linda", "William", "Elizabeth", "Thomas", "Susan", "Joseph", "Margaret", "Richard", "Ashley", "Christopher", "Kimberly"];
+        const lastNames = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"];
 
-        const roleOptions = ["Manager", "Assistant Manager", "Cashier", "Floor Supervisor", "NP"];
+        const allEmployees = [];
+        for(let i=0; i<48; i++) {
+            const fname = firstNames[Math.floor(Math.random()*firstNames.length)];
+            const lname = lastNames[Math.floor(Math.random()*lastNames.length)];
+            const name = fname + " " + lname;
+            const skillMap = {
+                "Manager": Math.floor(Math.random()*2)+4, "Assistant Manager": Math.floor(Math.random()*3)+3, "Cashier": Math.floor(Math.random()*3)+2, "Floor Supervisor": Math.floor(Math.random()*3)+3
+            };
+            allEmployees.push({
+                name: name, initial: fname[0] + lname[0], color: ["bg-blue-600", "bg-orange-500", "bg-pink-600", "bg-amber-600", "bg-red-600", "bg-indigo-600", "bg-emerald-600", "bg-violet-600"][i % 8],
+                rate: (Math.random() * 15 + 10).toFixed(2), hours: Math.floor(Math.random() * 30 + 10), minHours: Math.floor(Math.random() * 10 + 5) + "h",
+                eligible: i < 24, dept: i % 3 === 0 ? "FOH" : (i % 3 === 1 ? "BOH" : "Maintenance"),
+                pos: i % 4 === 0 ? "Manager" : (i % 4 === 1 ? "Assistant Manager" : (i % 4 === 2 ? "Cashier" : "Floor Supervisor")),
+                skills: skillMap, shifts: {}
+            });
+        }
+
+        const roleOptions = ["Manager", "Assistant Manager", "Cashier", "Floor Supervisor"];
         const shiftTimes = ["8:00A - 4:00P", "4:00P - 9:00P", "6:00A - 2:00P"];
         const roleColors = {
             "Manager": { border: "#4f46e5", bg: "#e0e7ff", text: "#4338ca" },
             "Assistant Manager": { border: "#9333ea", bg: "#f3e8ff", text: "#7e22ce" },
             "Cashier": { border: "#16a34a", bg: "#dcfce7", text: "#15803d" },
-            "Floor Supervisor": { border: "#ea580c", bg: "#ffedd5", text: "#9a3412" },
-            "NP": { border: "#64748b", bg: "#f1f5f9", text: "#334155" }
+            "Floor Supervisor": { border: "#ea580c", bg: "#ffedd5", text: "#9a3412" }
         };
 
         let currentTab = 'eligible';
-        const toggleStates = { eligible: false, others: false };
+        let globalUnassignedShifts = [];
         let pendingAssignments = [];
-        let globalUnassignedShifts = []; // Tracking active unassigned shifts
 
         function toggleOfferModal() {
             const modal = document.getElementById('offerModal');
@@ -316,14 +329,7 @@
                 const shuffled = [...roleOptions].sort(() => 0.5 - Math.random());
                 for(let i=0; i<3; i++) {
                     const r = shuffled[i];
-                    globalUnassignedShifts.push({
-                        id: `s-${d}-${i}`,
-                        dayIdx: d,
-                        dayName: ["SUN 14", "MON 15", "TUE 16", "WED 17", "THU 18", "FRI 19", "SAT 20"][d],
-                        time: shiftTimes[i],
-                        pos: r,
-                        dept: (r === "Cashier" || r === "Floor Supervisor") ? "BOH" : "FOH"
-                    });
+                    globalUnassignedShifts.push({ id: `s-${d}-${i}`, dayIdx: d, dayName: daysArr[d], time: shiftTimes[i], pos: r, dept: (r === "Cashier" || r === "Floor Supervisor") ? "BOH" : "FOH" });
                 }
             }
         }
@@ -332,169 +338,202 @@
             currentTab = tab;
             document.getElementById('eligibleTab').classList.toggle('active', tab === 'eligible');
             document.getElementById('othersTab').classList.toggle('active', tab === 'others');
-            document.getElementById('selectAllToggle').checked = toggleStates[tab];
             applyFilters();
-        }
-
-        function renderShifts() {
-            const grid = document.getElementById('shiftTimeline');
-            grid.innerHTML = "";
-            const days = ["SUN 14", "MON 15", "TUE 16", "WED 17", "THU 18", "FRI 19", "SAT 20"];
-            
-            days.forEach((day, dIdx) => {
-                const dayShifts = globalUnassignedShifts.filter(s => s.dayIdx === dIdx);
-                let shiftItems = dayShifts.map(s => {
-                    const colors = roleColors[s.pos] || roleColors["NP"];
-                    return `
-                        <div class="shift-pill" id="${s.id}"
-                             style="border-color: ${colors.border}; color: ${colors.border}" 
-                             data-dept="${s.dept}" data-pos="${s.pos}" data-time="${s.time}" data-day="${dIdx}" data-dayname="${day}"
-                             onclick="toggleSingleShift(this, ${dIdx})">
-                            <div class="text-[9px] font-bold text-slate-700 leading-tight">${s.time}</div>
-                            <span class="badge" style="background-color: ${colors.bg}; color: ${colors.text}">${s.pos}</span>
-                        </div>`;
-                }).join('');
-
-                grid.innerHTML += `
-                <div class="flex flex-col" id="day-col-${dIdx}">
-                    <div class="day-header" onclick="toggleDay(${dIdx})">
-                        <span class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider">${day}</span>
-                        <label class="day-switch" onclick="event.stopPropagation()">
-                            <input type="checkbox" id="day-toggle-${dIdx}" onchange="toggleDay(${dIdx})">
-                            <span class="day-slider"></span>
-                        </label>
-                    </div>
-                    ${shiftItems}
-                </div>`;
-            });
-            syncGlobalToggle();
         }
 
         function applyFilters() {
             const dept = document.getElementById('filterDept').value;
             const pos = document.getElementById('filterPos').value;
             const maxPay = parseFloat(document.getElementById('filterPay').value) || Infinity;
+            const paySort = document.getElementById('sortPay').value;
+            const hourSort = document.getElementById('sortHours').value;
 
-            document.querySelectorAll('.shift-pill').forEach(pill => {
-                const sDept = pill.dataset.dept;
-                const sPos = pill.dataset.pos;
-                pill.classList.toggle('hidden-shift', !((dept === 'all' || sDept === dept) && (pos === 'all' || sPos === pos)));
-            });
+            let filtered = allEmployees.filter(e => (currentTab === 'eligible' ? e.eligible : !e.eligible) && (dept === 'all' || e.dept === dept) && (pos === 'all' || e.pos === pos) && (parseFloat(e.rate) <= maxPay));
+            if (paySort === 'lowest') filtered.sort((a, b) => a.rate - b.rate);
+            else if (paySort === 'highest') filtered.sort((a, b) => b.rate - a.rate);
+            if (hourSort === 'asc') filtered.sort((a, b) => a.hours - b.hours);
+            else if (hourSort === 'desc') filtered.sort((a, b) => b.hours - a.hours);
 
-            const filtered = allEmployees.filter(e => 
-                (currentTab === 'eligible' ? e.eligible : !e.eligible) &&
-                (dept === 'all' || e.dept === dept) && (pos === 'all' || e.pos === pos) && (e.rate <= maxPay)
-            );
             renderPopupEmployees(filtered);
+            updateButtonText();
         }
 
         function renderPopupEmployees(list) {
             const container = document.getElementById('popupEmployeeContainer');
-            container.innerHTML = list.map(emp => `
-                <div class="employee-tile flex items-center shadow-sm" onclick="toggleTile(this)">
-                    <div class="w-9 h-9 rounded-md ${emp.color} text-white mr-3 flex items-center justify-center font-bold text-xs shadow-sm">${emp.initial}</div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex justify-between items-start">
-                            <span class="font-bold text-slate-800 text-[13px] truncate">${emp.name}</span>
-                            <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-0" ${toggleStates[currentTab] ? 'checked' : ''} onclick="event.stopPropagation()">
+            container.innerHTML = "";
+            for(let i=0; i<7; i++) {
+                const col = document.createElement('div');
+                col.className = "flex flex-col space-y-2 employee-col-" + i;
+                const colEmployees = list.filter((_, idx) => idx % 7 === i);
+                col.innerHTML = colEmployees.map(emp => {
+                    const skillHtml = Object.entries(emp.skills).map(([p, s]) => {
+                        let stars = '';
+                        for(let x=1; x<=5; x++) stars += `<i class="fa-solid fa-star ${x <= s ? 'star-gold' : 'text-slate-600'}"></i>`;
+                        return `<div class="flex justify-between items-center mb-0.5"><span>${p}</span><span class="ml-2">${stars}</span></div>`;
+                    }).join('');
+
+                    const tooltipContent = `<div class="font-bold border-b border-slate-600 mb-2 pb-1 text-blue-400">${emp.name}</div><div class="mb-1 flex justify-between"><span>Pay Rate:</span><span class="font-bold text-emerald-400">$${emp.rate}/hr</span></div><div class="mb-1 flex justify-between"><span>Min Hours:</span><span class="font-bold">${emp.minHours}</span></div><div class="mb-2 flex justify-between"><span>Worked:</span><span class="font-bold">${emp.hours}h</span></div><div class="text-[9px] font-bold text-slate-400 uppercase mb-1">Positions & Skills</div>${skillHtml}`;
+
+                    return `<div class="employee-tile flex items-center shadow-sm" onclick="toggleTile(this)" onmouseenter="showTooltip(event, '${encodeURIComponent(tooltipContent)}')" onmouseleave="hideTooltip()">
+                        <div class="w-6 h-6 rounded-md ${emp.color} text-white flex-shrink-0 flex items-center justify-center font-bold text-[8px] shadow-sm">${emp.initial}</div>
+                        <div class="flex-1 min-w-0 ml-1.5 flex justify-between items-center">
+                            <span class="font-bold text-slate-800 text-[10px] truncate pr-1">${emp.name}</span>
+                            <input type="checkbox" class="custom-checkbox pointer-events-none" onclick="event.stopPropagation(); updateButtonText()">
                         </div>
-                        <div class="flex items-center text-[10px] text-slate-500 font-medium mt-0.5">
-                            <span class="mr-3">Rate: <span class="text-slate-900 font-semibold">$${emp.rate.toFixed(2)}</span></span>
-                            <span>Hours: <span class="text-slate-900 font-semibold">${emp.hours}</span></span>
-                        </div>
-                    </div>
-                </div>`).join('');
+                    </div>`;
+                }).join('');
+                container.appendChild(col);
+            }
         }
+
+        function showTooltip(e, content) {
+            const tooltip = document.getElementById('global-tooltip');
+            tooltip.innerHTML = decodeURIComponent(content);
+            tooltip.style.display = 'block';
+            const rect = e.currentTarget.getBoundingClientRect();
+            let top = rect.top - tooltip.offsetHeight - 10;
+            let left = rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2);
+            if (top < 0) top = rect.bottom + 10;
+            if (left < 10) left = 10;
+            if (left + tooltip.offsetWidth > window.innerWidth) left = window.innerWidth - tooltip.offsetWidth - 10;
+            tooltip.style.top = top + 'px'; tooltip.style.left = left + 'px';
+        }
+
+        function hideTooltip() { document.getElementById('global-tooltip').style.display = 'none'; }
 
         function toggleTile(tile) {
             const cb = tile.querySelector('input');
             cb.checked = !cb.checked;
             tile.classList.toggle('selected', cb.checked);
+            updateButtonText();
         }
 
-        function toggleSingleShift(pill, dayIdx) {
-            pill.classList.toggle('selected');
-            updateDayToggleState(dayIdx);
-            syncGlobalToggle();
+        function updateButtonText() {
+            const count = document.querySelectorAll('#popupEmployeeContainer .employee-tile input:checked').length;
+            document.getElementById('sendOfferBtn').innerHTML = `<i class="fa-regular fa-paper-plane mr-2"></i> Send Offer ${count > 0 ? '(' + count + ')' : ''}`;
         }
 
-        function toggleDay(idx) {
-            const toggle = document.getElementById(`day-toggle-${idx}`);
-            if (event && event.currentTarget.classList.contains('day-header')) toggle.checked = !toggle.checked;
-            const pills = document.getElementById(`day-col-${idx}`).querySelectorAll('.shift-pill:not(.hidden-shift)');
-            pills.forEach(p => toggle.checked ? p.classList.add('selected') : p.classList.remove('selected'));
-            syncGlobalToggle();
+        function toggleEmployeeColHeader(idx) {
+            const chk = document.getElementById(`col-check-${idx}`);
+            chk.checked = !chk.checked;
+            toggleEmployeeCol(idx, chk.checked);
         }
 
-        function toggleAllShiftsGlobal(source) {
-            const pills = document.querySelectorAll('.shift-pill:not(.hidden-shift)');
-            pills.forEach(p => source.checked ? p.classList.add('selected') : p.classList.remove('selected'));
-            for(let i=0; i<7; i++) {
-                const dt = document.getElementById(`day-toggle-${i}`);
-                if(dt) dt.checked = source.checked;
-            }
-        }
-
-        function updateDayToggleState(idx) {
-            const pills = document.getElementById(`day-col-${idx}`).querySelectorAll('.shift-pill:not(.hidden-shift)');
-            const toggle = document.getElementById(`day-toggle-${idx}`);
-            const allSelected = pills.length > 0 && Array.from(pills).every(p => p.classList.contains('selected'));
-            if(toggle) toggle.checked = allSelected;
-        }
-
-        function syncGlobalToggle() {
-            const pills = document.querySelectorAll('.shift-pill:not(.hidden-shift)');
-            const gt = document.getElementById('globalShiftToggle');
-            const allSelected = pills.length > 0 && Array.from(pills).every(p => p.classList.contains('selected'));
-            if(gt) gt.checked = allSelected;
+        function toggleEmployeeCol(colIdx, isChecked) {
+            const col = document.querySelector(`.employee-col-${colIdx}`);
+            if(!col) return;
+            col.querySelectorAll('.employee-tile').forEach(tile => {
+                const cb = tile.querySelector('input');
+                cb.checked = isChecked;
+                tile.classList.toggle('selected', isChecked);
+            });
+            updateButtonText();
         }
 
         function handleSelectAll(source) {
-            toggleStates[currentTab] = source.checked;
-            document.querySelectorAll('#popupEmployeeContainer .employee-tile').forEach(t => {
+            document.querySelectorAll('.employee-tile').forEach(t => {
                 const cb = t.querySelector('input');
                 cb.checked = source.checked;
                 t.classList.toggle('selected', source.checked);
             });
+            for(let i=0; i<7; i++) {
+                const colChk = document.getElementById(`col-check-${i}`);
+                if(colChk) colChk.checked = source.checked;
+            }
+            updateButtonText();
         }
 
-        /* --- AUTO ASSIGN LOGIC --- */
+        function getBreakDetails(timeStr) {
+            if(timeStr.includes("8:00A")) return `Meal: 11:30A - 12:00P<br>Rest: 2:00P - 2:15P`;
+            if(timeStr.includes("4:00P")) return `Meal: 6:30P - 7:00P`;
+            if(timeStr.includes("6:00A")) return `Meal: 10:00A - 10:30A<br>Rest: 12:30P - 12:45P`;
+            return "No breaks scheduled";
+        }
+
+        function renderShifts() {
+            const grid = document.getElementById('shiftTimeline');
+            grid.innerHTML = "";
+            daysArr.forEach((day, dIdx) => {
+                const dayShifts = globalUnassignedShifts.filter(s => s.dayIdx === dIdx);
+                let shiftItems = dayShifts.map(s => {
+                    const colors = roleColors[s.pos] || { border: "#ccc", bg: "#eee", text: "#333" };
+                    const breaks = getBreakDetails(s.time);
+                    return `<div class="shift-pill" id="${s.id}" style="border-color: ${colors.border}; color: ${colors.border}" data-dept="${s.dept}" data-pos="${s.pos}" data-time="${s.time}" data-day="${dIdx}" data-dayname="${day}" onclick="toggleSingleShift(this)">
+                            <div class="flex justify-between items-start">
+                                <div class="text-[9px] font-bold text-slate-700 leading-tight">${s.time}</div>
+                                <div class="break-icon"><i class="fa-solid fa-mug-hot"></i><div class="break-tooltip"><strong>Breaks:</strong><br>${breaks}</div></div>
+                            </div>
+                            <span class="badge" style="background-color: ${colors.bg}; color: ${colors.text}">${s.pos}</span>
+                        </div>`;
+                }).join('');
+
+                grid.innerHTML += `<div class="flex flex-col" id="day-col-${dIdx}">
+                    <div class="day-header" onclick="toggleDayUIHeader(${dIdx})">
+                        <span class="text-[9px] font-extrabold text-slate-500 uppercase tracking-wider">${day}</span>
+                        <input type="checkbox" id="day-toggle-${dIdx}" onchange="toggleDayUI(${dIdx}, this.checked)" onclick="event.stopPropagation()" class="custom-checkbox">
+                    </div>${shiftItems}</div>`;
+            });
+        }
+
+        function toggleSingleShift(pill) { pill.classList.toggle('selected'); }
+
+        function toggleDayUIHeader(idx) {
+            const chk = document.getElementById(`day-toggle-${idx}`);
+            chk.checked = !chk.checked;
+            toggleDayUI(idx, chk.checked);
+        }
+
+        function toggleDayUI(idx, isChecked) {
+            const pills = document.getElementById(`day-col-${idx}`).querySelectorAll('.shift-pill');
+            pills.forEach(p => isChecked ? p.classList.add('selected') : p.classList.remove('selected'));
+        }
+
+        function toggleAllShiftsGlobal(source) {
+            document.querySelectorAll('.shift-pill').forEach(p => source.checked ? p.classList.add('selected') : p.classList.remove('selected'));
+            for(let i=0; i<7; i++) { 
+                const dChk = document.getElementById(`day-toggle-${i}`);
+                if(dChk) dChk.checked = source.checked; 
+            }
+        }
+
         function handleAutoAssignInit() {
-            const selectedShifts = document.querySelectorAll('.shift-pill.selected:not(.hidden-shift)');
-            if (selectedShifts.length === 0) return alert("Select shifts first.");
-
-            const dept = document.getElementById('filterDept').value;
-            const pos = document.getElementById('filterPos').value;
-            const maxPay = parseFloat(document.getElementById('filterPay').value) || Infinity;
+            const selectedShifts = document.querySelectorAll('.shift-pill.selected');
+            if (selectedShifts.length === 0) return alert("Please select unassigned shifts first.");
             
-            const candidates = allEmployees.filter(e => 
-                (currentTab === 'eligible' ? e.eligible : !e.eligible) &&
-                (dept === 'all' || e.dept === dept) && (pos === 'all' || e.pos === pos) && (e.rate <= maxPay)
-            );
-
-            if (candidates.length === 0) return alert("No matching employees for auto-assignment.");
-
+            // NEW: Close the Offer Shifts modal when opening Auto Assign
+            document.getElementById('offerModal').style.display = 'none';
+            
+            const candidates = allEmployees.filter(e => currentTab === 'eligible' ? e.eligible : !e.eligible);
             pendingAssignments = [];
             selectedShifts.forEach((pill, index) => {
                 const assignedEmp = candidates[index % candidates.length];
-                pendingAssignments.push({
-                    shiftId: pill.id,
-                    day: pill.dataset.dayname,
-                    dayIdx: pill.dataset.day,
-                    time: pill.dataset.time,
-                    pos: pill.dataset.pos,
-                    empName: assignedEmp.name
+                pendingAssignments.push({ 
+                    shiftId: pill.id, 
+                    day: pill.dataset.dayname, 
+                    dayIdx: pill.dataset.day, 
+                    time: pill.dataset.time, 
+                    pos: pill.dataset.pos, 
+                    empName: assignedEmp.name 
                 });
             });
-
             renderAutoAssignModal(candidates);
-            toggleOfferModal(); 
             document.getElementById('autoAssignModal').style.display = 'flex';
         }
 
         function renderAutoAssignModal(candidates) {
-            const container = document.getElementById('autoAssignList');
-            container.innerHTML = pendingAssignments.map((item, idx) => `
+            document.getElementById('autoAssignList').innerHTML = pendingAssignments.map((item, idx) => {
+                // Function to generate stars string based on specific position skill
+                const getStars = (emp) => {
+    const level = emp.skills[item.pos] || 0;
+    let stars = '';
+    for(let i=0; i<5; i++) {
+        // Use the colored Emoji star for "Gold" and the plain star for empty
+        stars += i < level ? '⭐' : '☆'; 
+    }
+    return stars;
+};
+
+                return `
                 <div class="assign-item bg-white p-4 rounded-xl shadow-sm mb-3 flex items-center justify-between border border-slate-100">
                     <div>
                         <div class="flex items-center space-x-2 mb-1">
@@ -503,84 +542,55 @@
                         </div>
                         <div class="text-[10px] text-slate-400 font-bold uppercase">${item.pos}</div>
                     </div>
-                    <div class="flex items-center space-x-3">
-                        <div class="h-8 w-[1px] bg-slate-100 mx-2"></div>
-                        <select onchange="updatePendingEmp(${idx}, this.value)" class="bg-slate-50 border-none rounded-lg px-3 py-2 text-xs font-bold text-slate-700 outline-none focus:ring-2 focus:ring-emerald-500/20 w-44">
-                            ${candidates.map(c => `<option value="${c.name}" ${c.name === item.empName ? 'selected' : ''}>${c.name}</option>`).join('')}
-                        </select>
-                    </div>
-                </div>
-            `).join('');
+                    <select onchange="pendingAssignments[${idx}].empName = this.value" class="bg-slate-50 border-none rounded-lg px-3 py-2 text-xs font-bold text-slate-700 w-64">
+                        ${candidates.map(c => {
+                            const stars = getStars(c);
+                            return `<option value="${c.name}" ${c.name === item.empName ? 'selected' : ''}>${c.name} (${stars})</option>`;
+                        }).join('')}
+                    </select>
+                </div>`;
+            }).join('');
         }
 
-        function updatePendingEmp(idx, name) { pendingAssignments[idx].empName = name; }
         function closeAutoAssign() { document.getElementById('autoAssignModal').style.display = 'none'; }
 
         function finalizeAssignments() {
             pendingAssignments.forEach(item => {
                 const emp = allEmployees.find(e => e.name === item.empName);
-                if (emp) emp.shifts[item.dayIdx] = item.time.replace(/\s/g, '');
-                // REMOVE PERMANENTLY from the unassigned list
+                if (emp) {
+                    emp.shifts[item.dayIdx] = item.time.replace(/\s/g, '');
+                    // Update emp position to match the shift they were assigned to for UI colors
+                    emp.pos = item.pos; 
+                }
                 globalUnassignedShifts = globalUnassignedShifts.filter(s => s.id !== item.shiftId);
             });
-            refreshMainSchedule();
+            refreshMainSchedule(); 
             closeAutoAssign();
         }
 
         function refreshMainSchedule() {
             const tbody = document.getElementById('employee-rows');
             tbody.innerHTML = '';
-            
             const pendingCount = globalUnassignedShifts.length;
-            const unassignedRowClone = `
-                <tr id="unassigned-row" class="unassigned-row">
-                    <td class="p-4 border-r border-b sticky left-0 unassigned-card-bg shadow-sm z-20">
-                        <div class="flex flex-col items-center">
-                            <div class="flex items-center space-x-2 mb-3">
-                                <span class="text-gray-800 font-bold text-[14px]">Unassigned Shifts</span>
-                                <span class="pending-badge">${pendingCount} Pending</span>
-                            </div>
-                            <div class="flex space-x-2 w-full justify-center">
-                                <button id="toggle-btn" class="bg-white border border-blue-100 text-blue-600 px-3 py-1.5 rounded-lg text-[11px] font-bold w-24">Show</button>
-                                <button onclick="toggleOfferModal()" class="bg-[#5e5ce6] text-white px-3 py-1.5 rounded-lg text-[11px] font-bold w-24">Offer Shifts</button>
-                            </div>
-                        </div>
-                    </td>
-                    ${[...Array(7)].map((_, i) => {
-                        const count = globalUnassignedShifts.filter(s => s.dayIdx === i).length;
-                        return `<td class="border-r border-b text-center p-2"><div class="summary-text text-[11px] font-bold ${count > 0 ? 'text-gray-600' : 'text-gray-400'}">${count} Shift(s)</div></td>`;
-                    }).join('')}
-                </tr>`;
-            
-            tbody.insertAdjacentHTML('beforeend', unassignedRowClone);
-            document.getElementById('toggle-btn').addEventListener('click', () => {
-                const isActive = document.getElementById('unassigned-row').classList.toggle('active');
-                document.getElementById('toggle-btn').innerHTML = isActive ? `<i class="fa-regular fa-eye-slash mr-2"></i> Hide` : `<i class="fa-regular fa-eye mr-2"></i> Show`;
-            });
+            tbody.insertAdjacentHTML('beforeend', `<tr id="unassigned-row" class="unassigned-row"><td class="p-4 border-r border-b sticky left-0 unassigned-card-bg shadow-sm z-20"><div class="flex flex-col items-center"><div class="flex items-center space-x-2 mb-3"><span class="text-gray-800 font-bold text-[14px]">Unassigned</span><span class="pending-badge">${pendingCount} Pending</span></div><div class="flex space-x-2 w-full justify-center"><button class="bg-white border border-blue-100 text-blue-600 px-3 py-1.5 rounded-lg text-[11px] font-bold w-24">Show</button><button onclick="toggleOfferModal()" class="bg-[#5e5ce6] text-white px-3 py-1.5 rounded-lg text-[11px] font-bold w-24">Offer Shifts</button></div></div></td>${[...Array(7)].map((_, i) => `<td class="border-r border-b text-center p-2"><div class="summary-text text-[11px] font-bold text-gray-600">${globalUnassignedShifts.filter(s => s.dayIdx === i).length} Shift(s)</div></td>`).join('')}</tr>`);
 
             allEmployees.forEach(emp => {
                 const tr = document.createElement('tr');
                 tr.className = "employee-row h-14 border-b text-xs";
-                let rowHtml = `
-                    <td class="p-2 border-r flex items-center space-x-3 sticky left-0 bg-white z-10 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">
-                        <div class="relative"><div class="w-8 h-8 rounded-full ${emp.color} text-white flex items-center justify-center font-bold text-[10px]">${emp.initial}</div></div>
-                        <div class="font-bold text-slate-700">${emp.name}<br><span class="text-[9px] text-slate-400 font-normal">Hrs ${Object.keys(emp.shifts).length * 8}.0</span></div>
-                    </td>`;
+                let rowHtml = `<td class="p-2 border-r flex items-center space-x-3 sticky left-0 bg-white z-10 shadow-sm"><div class="w-8 h-8 rounded-full ${emp.color} text-white flex items-center justify-center font-bold text-[10px]">${emp.initial}</div><div class="font-bold text-slate-700">${emp.name}</div></td>`;
                 for(let i=0; i<7; i++) {
                     let content = "";
                     if (emp.shifts[i]) {
-                        const c = roleColors[emp.pos] || roleColors["NP"];
+                        const c = roleColors[emp.pos] || { border: "#ccc", bg: "#eee", text: "#333" };
                         content = `<div class="main-shift-card" style="border-left-color: ${c.border}; background-color: ${c.bg}; color: ${c.text}"><div class="font-extrabold text-[9px]">${emp.shifts[i]}</div><div class="opacity-80 text-[8px] font-bold uppercase truncate">${emp.pos}</div></div>`;
                     }
                     rowHtml += `<td class="border-r border-b p-1">${content}</td>`;
                 }
-                tr.innerHTML = rowHtml;
-                tbody.appendChild(tr);
+                tr.innerHTML = rowHtml; tbody.appendChild(tr);
             });
         }
 
-        initGlobalShifts();
-        refreshMainSchedule();
+        initGlobalShifts(); refreshMainSchedule();
     </script>
 </body>
 </html>
