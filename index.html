@@ -323,13 +323,24 @@
          }
          
          function applyEmployeeFilters() {
-             const paySortEl = document.querySelector('input[name="paySort"]:checked');
-             const hourSortEl = document.querySelector('input[name="hourSort"]:checked');
-             const maxPayVal = parseFloat(document.getElementById('maxPayFilter').value);
-             const paySort = paySortEl ? paySortEl.value : 'all';
-             const hourSort = hourSortEl ? hourSortEl.value : 'all';
-             
-             let filteredEmps = [];
+               const isAllShiftsSelected = document.getElementById('globalShiftToggle').checked;
+
+               // If Select All Shifts is ON, hide all employees in Eligible & Others
+               if (isAllShiftsSelected) {
+                  renderPopupEmployees([]);
+                  updateButtonText();
+                  return;
+               }
+
+               const paySortEl = document.querySelector('input[name="paySort"]:checked');
+               const hourSortEl = document.querySelector('input[name="hourSort"]:checked');
+               const maxPayVal = parseFloat(document.getElementById('maxPayFilter').value);
+               const paySort = paySortEl ? paySortEl.value : 'all';
+               const hourSort = hourSortEl ? hourSortEl.value : 'all';
+
+               let filteredEmps = [];
+
+
 
              if (currentTab === 'eligible') {
                  // Logic: If one shift is selected, show only those suggested for it
